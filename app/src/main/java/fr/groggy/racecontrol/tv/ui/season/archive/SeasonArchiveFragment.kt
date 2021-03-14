@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.Keep
 import androidx.fragment.app.viewModels
-import androidx.leanback.app.VerticalGridSupportFragment
+import androidx.leanback.app.BrowseSupportFragment
 import androidx.leanback.widget.*
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,19 +15,30 @@ import fr.groggy.racecontrol.tv.ui.season.browse.SeasonBrowseActivity
 
 @Keep
 @AndroidEntryPoint
-class SeasonArchiveFragment: VerticalGridSupportFragment(), OnItemViewClickedListener {
+class SeasonArchiveFragment: BrowseSupportFragment(), OnItemViewClickedListener {
     private val itemAdapter: ArrayObjectAdapter by lazy {
         ArrayObjectAdapter(ArchivePresenter())
+    }
+
+    private val moreAdapter: ArrayObjectAdapter by lazy {
+        ArrayObjectAdapter(SettingsPresenter()).apply {
+            setItems(listOf(
+                1
+            ), null)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        title = getText(R.string.choose_a_season)
-        gridPresenter = VerticalGridPresenter().apply {
-            numberOfColumns = 5
+        headersState = HEADERS_ENABLED
+        isHeadersTransitionOnBackEnabled = true
+        adapter = ArrayObjectAdapter(ListRowPresenter()).apply {
+            setItems(listOf(
+                ListRow(HeaderItem(SEASON_SELECT_ROW_ID, getString(R.string.choose_a_season)), itemAdapter),
+                ListRow(HeaderItem(MORE_ROW_ID, getString(R.string.more)), moreAdapter)
+            ), null)
         }
-        adapter = itemAdapter
         onItemViewClickedListener = this
     }
 
@@ -47,9 +58,18 @@ class SeasonArchiveFragment: VerticalGridSupportFragment(), OnItemViewClickedLis
         rowViewHolder: RowPresenter.ViewHolder?,
         row: Row?
     ) {
-        val archiveItem = item as Archive
-        val browseActivity = SeasonBrowseActivity
-            .intent(requireContext(), F1TvSeasonId.ofUid(archiveItem.uid))
-        startActivity(browseActivity)
+        when (row?.id) {
+            SEASON_SELECT_ROW_ID -> {
+                val archiveItem = item as Archive
+                val browseActivity = SeasonBrowseActivity
+                    .intent(requireContext(), F1TvSeasonId.ofUid(archiveItem.uid))
+                startActivity(browseActivity)
+            }
+        }
+    }
+
+    companion object {
+        private const val SEASON_SELECT_ROW_ID = 1L
+        private const val MORE_ROW_ID = 2L
     }
 }
