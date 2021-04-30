@@ -52,20 +52,7 @@ class ChannelPlaybackActivity : FragmentActivity(), ChannelManager {
         sessionId = intent.getStringExtra(SESSION_ID) ?: return finish()
         contentId = intent.getStringExtra(CONTENT_ID) ?: return finish()
 
-        val viewId = View.generateViewId()
-        channelGrid.addView(
-            FragmentContainerView(this).apply {
-                id = View.generateViewId()
-            },
-            FlexboxLayout.LayoutParams(
-                FlexboxLayout.LayoutParams.WRAP_CONTENT,
-                FlexboxLayout.LayoutParams.WRAP_CONTENT
-            )
-        )
-
-        supportFragmentManager.beginTransaction()
-            .add(viewId, ChannelPlaybackFragment.newInstance(sessionId, null, contentId), null)
-            .commit()
+        attachChannel(channelId = null)
     }
 
     override fun addNewChannel(channelId: String) {
@@ -76,6 +63,10 @@ class ChannelPlaybackActivity : FragmentActivity(), ChannelManager {
             }
         }
 
+        attachChannel(channelId)
+    }
+
+    private fun attachChannel(channelId: String?) {
         val viewId = View.generateViewId()
         channelGrid.addView(
             FragmentContainerView(this).apply {
