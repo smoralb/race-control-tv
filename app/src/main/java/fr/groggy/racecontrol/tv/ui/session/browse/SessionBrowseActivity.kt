@@ -45,16 +45,24 @@ class SessionBrowseActivity : FragmentActivity() {
                 is SingleChannelSession -> {
                     val intent = ChannelPlaybackActivity.intent(
                         this@SessionBrowseActivity,
+                        sessionId,
                         session.channel?.value,
                         session.contentId
                     )
                     startActivity(intent)
                     finish()
                 }
+                /* Keep support to multi channel but always go to the main channel (basic channel) */
                 is MultiChannelsSession -> {
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, SessionGridFragment::class.java, null)
-                        .commit()
+                    val channel = session.channels.first { it is BasicChannel }
+                    val intent = ChannelPlaybackActivity.intent(
+                        this@SessionBrowseActivity,
+                        sessionId,
+                        channel.id?.value,
+                        session.contentId
+                    )
+                    startActivity(intent)
+                    finish()
                 }
             }
         }

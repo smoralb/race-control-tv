@@ -14,8 +14,17 @@ class ChannelPlaybackActivity : FragmentActivity() {
     companion object {
         private val TAG = ChannelPlaybackActivity::class.simpleName
 
-        fun intent(context: Context, channelId: String?, contentId: String): Intent {
+        fun intent(
+            context: Context,
+            sessionId: String,
+            channelId: String?,
+            contentId: String
+        ): Intent {
             val intent = Intent(context, ChannelPlaybackActivity::class.java)
+            ChannelPlaybackFragment.putSessionId(
+                intent,
+                sessionId
+            )
             ChannelPlaybackFragment.putChannelId(
                 intent,
                 channelId

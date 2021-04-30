@@ -67,27 +67,27 @@ class SessionGridFragment : VerticalGridSupportFragment(), OnItemViewClickedList
     }
 
     private fun onUpdatedSession(session: Session) {
-        when (session) {
-            is SingleChannelSession -> {
-                val intent = ChannelPlaybackActivity.intent(
-                    requireActivity(),
-                    session.channel?.value,
-                    session.contentId
-                )
-                startActivity(intent)
-                requireActivity().finish()
-            }
-            is MultiChannelsSession -> {
-                title = session.name
-                channelsAdapter.setItems(session.channels, Channel.diffCallback)
-            }
-        }
+//        when (session) {
+//            is SingleChannelSession -> {
+//                val intent = ChannelPlaybackActivity.intent(
+//                    requireActivity(),
+//                    session.channel?.value,
+//                    session.contentId
+//                )
+//                startActivity(intent)
+//                requireActivity().finish()
+//            }
+//            is MultiChannelsSession -> {
+//                title = session.name
+//                channelsAdapter.setItems(session.channels, Channel.diffCallback)
+//            }
+//        }
     }
 
     override fun onItemClicked(itemViewHolder: Presenter.ViewHolder?, item: Any, rowViewHolder: RowPresenter.ViewHolder?, row: Row?) {
-        val channel = item as Channel
-        val intent = ChannelPlaybackActivity.intent(requireActivity(), channel.id?.value, channel.contentId)
-        startActivity(intent)
+//        val channel = item as Channel
+//        val intent = ChannelPlaybackActivity.intent(requireActivity(), channel.id?.value, channel.contentId)
+//        startActivity(intent)
     }
 
 }

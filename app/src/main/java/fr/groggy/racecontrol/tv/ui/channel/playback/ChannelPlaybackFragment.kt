@@ -32,6 +32,11 @@ class ChannelPlaybackFragment : VideoSupportFragment() {
 
         private val CHANNEL_ID = "${ChannelPlaybackFragment::class}.CHANNEL_ID"
         private val CONTENT_ID = "${ChannelPlaybackFragment::class}.CONTENT_ID"
+        private val SESSION_ID = "${ChannelPlaybackFragment::class}.SESSION_ID"
+
+        fun putSessionId(intent: Intent, sessionId: String) {
+            intent.putExtra(SESSION_ID, sessionId)
+        }
 
         fun putChannelId(intent: Intent, channelId: String?) {
             intent.putExtra(CHANNEL_ID, channelId)
@@ -41,8 +46,13 @@ class ChannelPlaybackFragment : VideoSupportFragment() {
             intent.putExtra(CONTENT_ID, contentId)
         }
 
-        fun findChannelId(activity: Activity): String? =
-            activity.intent.getStringExtra(CHANNEL_ID)
+        fun findSessionId(activity: Activity): String? {
+            return activity.intent.getStringExtra(SESSION_ID)
+        }
+
+        fun findChannelId(activity: Activity): String? {
+            return activity.intent.getStringExtra(CHANNEL_ID)
+        }
 
         fun findContentId(activity: Activity): String? {
             return activity.intent.getStringExtra(CONTENT_ID)
