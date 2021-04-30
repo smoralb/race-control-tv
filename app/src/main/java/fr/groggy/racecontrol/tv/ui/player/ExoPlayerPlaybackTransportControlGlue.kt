@@ -20,6 +20,7 @@ import com.google.android.exoplayer2.text.TextOutput
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import fr.groggy.racecontrol.tv.R
+import fr.groggy.racecontrol.tv.ui.channel.ChannelManager
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -54,6 +55,12 @@ class ExoPlayerPlaybackTransportControlGlue(
         ContextCompat.getDrawable(context, R.drawable.ic_video_settings)
     )
     private val closedCaptionAction = PlaybackControlsRow.ClosedCaptioningAction(activity)
+    private val addChannelAction = Action(
+        Action.NO_ID,
+        "Temp label",
+        null,
+        ContextCompat.getDrawable(context, R.drawable.ic_video_settings)
+    )
 
     private val closedCaptionsTextView: TextView by lazy {
         activity.findViewById(R.id.closed_captions)
@@ -81,6 +88,7 @@ class ExoPlayerPlaybackTransportControlGlue(
             add(selectAudioAction)
             add(resolutionSelectionAction)
             add(closedCaptionAction)
+            add(addChannelAction)
         }
     }
 
@@ -92,8 +100,14 @@ class ExoPlayerPlaybackTransportControlGlue(
             selectAudioAction -> openAudioSelectionDialog()
             closedCaptionAction -> toggleClosedCaptions()
             resolutionSelectionAction -> openResolutionSelectionDialog()
+            addChannelAction -> showChannelPicker()
             else -> super.onActionClicked(action)
         }
+    }
+
+    private fun showChannelPicker() {
+        val channelManager = activity as? ChannelManager ?: return
+        channelManager.addNewChannel("1016")
     }
 
     private fun openResolutionSelectionDialog() {

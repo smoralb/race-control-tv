@@ -69,9 +69,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutinesVersion")
 
     implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.fragment:fragment-ktx:1.3.2")
+    implementation("androidx.fragment:fragment-ktx:1.3.3")
     implementation("androidx.leanback:leanback:1.0.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    implementation("com.google.android:flexbox:2.0.1")
 
     val hiltVersion = rootProject.extra["hiltVersion"]
     val androidxHiltVersion = "1.0.0-beta01"

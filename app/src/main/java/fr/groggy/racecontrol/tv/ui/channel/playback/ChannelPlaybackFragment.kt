@@ -1,11 +1,10 @@
 package fr.groggy.racecontrol.tv.ui.channel.playback
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.Keep
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.leanback.app.VideoSupportFragment
 import androidx.leanback.app.VideoSupportFragmentGlueHost
 import androidx.lifecycle.lifecycleScope
@@ -34,28 +33,18 @@ class ChannelPlaybackFragment : VideoSupportFragment() {
         private val CONTENT_ID = "${ChannelPlaybackFragment::class}.CONTENT_ID"
         private val SESSION_ID = "${ChannelPlaybackFragment::class}.SESSION_ID"
 
-        fun putSessionId(intent: Intent, sessionId: String) {
-            intent.putExtra(SESSION_ID, sessionId)
-        }
-
-        fun putChannelId(intent: Intent, channelId: String?) {
-            intent.putExtra(CHANNEL_ID, channelId)
-        }
-
-        fun putContentId(intent: Intent, contentId: String) {
-            intent.putExtra(CONTENT_ID, contentId)
-        }
-
-        fun findSessionId(activity: Activity): String? {
-            return activity.intent.getStringExtra(SESSION_ID)
-        }
-
-        fun findChannelId(activity: Activity): String? {
-            return activity.intent.getStringExtra(CHANNEL_ID)
-        }
-
-        fun findContentId(activity: Activity): String? {
-            return activity.intent.getStringExtra(CONTENT_ID)
+        fun newInstance(
+            sessionId: String,
+            channelId: String?,
+            contentId: String
+        ): ChannelPlaybackFragment {
+            return ChannelPlaybackFragment().apply {
+                arguments = bundleOf(
+                    SESSION_ID to sessionId,
+                    CHANNEL_ID to channelId,
+                    CONTENT_ID to contentId
+                )
+            }
         }
     }
 
@@ -91,8 +80,8 @@ class ChannelPlaybackFragment : VideoSupportFragment() {
         val glue = ExoPlayerPlaybackTransportControlGlue(requireActivity(), player, trackSelector)
         glue.host = VideoSupportFragmentGlueHost(this)
 
-        val contentId = findContentId(requireActivity()) ?: return requireActivity().finish()
-        val channelId = findChannelId(requireActivity())
+        val contentId = arguments?.getString(CONTENT_ID) ?: return requireActivity().finish()
+        val channelId = arguments?.getString(CHANNEL_ID)
         lifecycleScope.launchWhenStarted {
             try {
                 val viewing = viewingService.getViewing(channelId, contentId)

@@ -11,7 +11,6 @@ import androidx.leanback.widget.*
 import androidx.lifecycle.asLiveData
 import dagger.hilt.android.AndroidEntryPoint
 import fr.groggy.racecontrol.tv.ui.channel.ChannelCardPresenter
-import fr.groggy.racecontrol.tv.ui.channel.playback.ChannelPlaybackActivity
 
 @Keep
 @AndroidEntryPoint
