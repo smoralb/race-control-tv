@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.leanback.app.VideoSupportFragment
 import androidx.leanback.app.VideoSupportFragmentGlueHost
+import androidx.leanback.media.PlaybackTransportControlGlue
 import androidx.lifecycle.lifecycleScope
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -19,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import fr.groggy.racecontrol.tv.R
 import fr.groggy.racecontrol.tv.core.ViewingService
 import fr.groggy.racecontrol.tv.f1tv.F1TvViewing
+import fr.groggy.racecontrol.tv.ui.channel.ChannelManager
 import fr.groggy.racecontrol.tv.ui.player.ExoPlayerPlaybackTransportControlGlue
 import javax.inject.Inject
 
@@ -79,11 +81,7 @@ class ChannelPlaybackFragment : VideoSupportFragment() {
     private fun startPlayer() {
         val glue = ExoPlayerPlaybackTransportControlGlue(requireActivity(), player, trackSelector)
         glue.host = VideoSupportFragmentGlueHost(this)
-
-        val controlRow = requireActivity().supportFragmentManager
-            .findFragmentById(R.id.player_control) as ControlRowFragment
-
-        setPlaybackRowPresenter(controlRow.setUpAdapter())
+        attachCustomControlRow(glue)
 
         val contentId = arguments?.getString(CONTENT_ID) ?: return requireActivity().finish()
         val channelId = arguments?.getString(CHANNEL_ID)
@@ -94,6 +92,14 @@ class ChannelPlaybackFragment : VideoSupportFragment() {
             } catch (_: Exception) {
                 handleError()
             }
+        }
+    }
+
+    private fun attachCustomControlRow(glue: PlaybackTransportControlGlue<*>) {
+        val manager = activity as? ChannelManager
+        val presenter = manager?.findPlaybackRowPresenter(glue)
+        if (presenter != null) {
+            setPlaybackRowPresenter(presenter)
         }
     }
 

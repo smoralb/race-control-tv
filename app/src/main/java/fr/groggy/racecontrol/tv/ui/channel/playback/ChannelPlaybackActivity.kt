@@ -8,6 +8,8 @@ import androidx.core.view.children
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentContainerView
+import androidx.leanback.media.PlaybackTransportControlGlue
+import androidx.leanback.widget.PlaybackRowPresenter
 import com.google.android.flexbox.FlexboxLayout
 import dagger.hilt.android.AndroidEntryPoint
 import fr.groggy.racecontrol.tv.R
@@ -49,6 +51,12 @@ class ChannelPlaybackActivity : FragmentActivity(), ChannelManager {
         contentId = intent.getStringExtra(CONTENT_ID) ?: return finish()
 
         attachChannel(channelId = null, isPrimary = true)
+    }
+
+    override fun findPlaybackRowPresenter(glue: PlaybackTransportControlGlue<*>): PlaybackRowPresenter {
+        val fragment = supportFragmentManager
+            .findFragmentById(R.id.player_control) as ControlRowFragment
+        return fragment.setUp(glue)
     }
 
     override fun addNewChannel(channelId: String) {
