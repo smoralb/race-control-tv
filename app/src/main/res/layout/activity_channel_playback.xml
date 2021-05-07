@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:layout_margin="62dp"
-        android:layout_above="@id/playback_control"
+        android:layout_alignParentBottom="true"
         android:textSize="24sp"
         android:textColor="@android:color/white"
         android:background="#80000000"

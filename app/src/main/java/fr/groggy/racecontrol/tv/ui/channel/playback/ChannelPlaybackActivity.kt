@@ -80,7 +80,7 @@ class ChannelPlaybackActivity : FragmentActivity(), ChannelManager {
         )
 
         supportFragmentManager.beginTransaction()
-            .add(viewId, ChannelPlaybackFragment.newInstance(sessionId, channelId, contentId), null)
+            .add(viewId, ChannelPlaybackFragment.newInstance(sessionId, channelId, contentId))
             .commit()
     }
 }
