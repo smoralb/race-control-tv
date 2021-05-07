@@ -3,7 +3,6 @@ package fr.groggy.racecontrol.tv.ui.channel.playback
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.children
 import androidx.core.view.updateLayoutParams
@@ -18,8 +17,6 @@ import fr.groggy.racecontrol.tv.ui.channel.ChannelManager
 class ChannelPlaybackActivity : FragmentActivity(), ChannelManager {
 
     companion object {
-        private val TAG = ChannelPlaybackActivity::class.simpleName
-
         private val CHANNEL_ID = "${ChannelPlaybackActivity::class}.CHANNEL_ID"
         private val CONTENT_ID = "${ChannelPlaybackActivity::class}.CONTENT_ID"
         private val SESSION_ID = "${ChannelPlaybackActivity::class}.SESSION_ID"
@@ -45,14 +42,13 @@ class ChannelPlaybackActivity : FragmentActivity(), ChannelManager {
     private lateinit var contentId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d(TAG, "onCreate")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_channel_playback)
 
         sessionId = intent.getStringExtra(SESSION_ID) ?: return finish()
         contentId = intent.getStringExtra(CONTENT_ID) ?: return finish()
 
-        attachChannel(channelId = null)
+        attachChannel(channelId = null, isPrimary = true)
     }
 
     override fun addNewChannel(channelId: String) {
@@ -66,18 +62,20 @@ class ChannelPlaybackActivity : FragmentActivity(), ChannelManager {
         attachChannel(channelId)
     }
 
-    private fun attachChannel(channelId: String?) {
+    private fun attachChannel(channelId: String?, isPrimary: Boolean = false) {
         val viewId = View.generateViewId()
         channelGrid.addView(
-            FragmentContainerView(this).apply {
+            FragmentContainerView(this@ChannelPlaybackActivity).apply {
                 id = viewId
             },
             FlexboxLayout.LayoutParams(
-                FlexboxLayout.LayoutParams.WRAP_CONTENT,
-                FlexboxLayout.LayoutParams.WRAP_CONTENT
+                FlexboxLayout.LayoutParams.MATCH_PARENT,
+                FlexboxLayout.LayoutParams.MATCH_PARENT
             ).apply {
-                flexBasisPercent = 0.5F
-                flexShrink = 0.5F
+                if (!isPrimary) {
+                    flexBasisPercent = 0.5F
+                    flexShrink = 0.5F
+                }
             }
         )
 
