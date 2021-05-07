@@ -7,7 +7,8 @@ import androidx.leanback.widget.*
 
 class ControlRowFragment: PlaybackSupportFragment() {
     fun setUp(glue: PlaybackTransportControlGlue<*>): PlaybackRowPresenter {
-        val playbackControlsRowPresenter = rowPresenter(glue)
+//        val playbackControlsRowPresenter = rowPresenter(glue)
+        val playbackControlsRowPresenter = PlaybackControlsRowPresenter(detailsPresenter())
         val rowsAdapter = ArrayObjectAdapter(playbackControlsRowPresenter)
 
         adapter = rowsAdapter
