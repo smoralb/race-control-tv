@@ -53,10 +53,10 @@ class ChannelPlaybackActivity : FragmentActivity(), ChannelManager {
         attachChannel(channelId = null, isPrimary = true)
     }
 
-    override fun findPlaybackRowPresenter(glue: PlaybackTransportControlGlue<*>): PlaybackRowPresenter {
+    override fun findPlaybackRowPresenter(glue: PlaybackTransportControlGlue<*>): PlaybackRowPresenter? {
         val fragment = supportFragmentManager
-            .findFragmentById(R.id.player_control) as ControlRowFragment
-        return fragment.setUp(glue)
+            .findFragmentById(R.id.player_control) as? ControlRowFragment
+        return fragment?.setUp(glue)
     }
 
     override fun addNewChannel(channelId: String) {

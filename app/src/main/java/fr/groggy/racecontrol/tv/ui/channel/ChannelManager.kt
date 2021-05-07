@@ -5,5 +5,5 @@ import androidx.leanback.widget.PlaybackRowPresenter
 
 interface ChannelManager {
     fun addNewChannel(channelId: String)
-    fun findPlaybackRowPresenter(glue: PlaybackTransportControlGlue<*>): PlaybackRowPresenter
+    fun findPlaybackRowPresenter(glue: PlaybackTransportControlGlue<*>): PlaybackRowPresenter?
 }
