@@ -20,11 +20,18 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:layout_margin="62dp"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/player_control"
         android:textSize="24sp"
         android:textColor="@android:color/white"
         android:background="#80000000"
         tools:visibility="visible"
         tools:text="I am a closed caption"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/player_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:name="fr.groggy.racecontrol.tv.ui.channel.playback.ControlRowFragment"/>
 
 </RelativeLayout>

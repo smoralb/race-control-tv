@@ -80,6 +80,11 @@ class ChannelPlaybackFragment : VideoSupportFragment() {
         val glue = ExoPlayerPlaybackTransportControlGlue(requireActivity(), player, trackSelector)
         glue.host = VideoSupportFragmentGlueHost(this)
 
+        val controlRow = requireActivity().supportFragmentManager
+            .findFragmentById(R.id.player_control) as ControlRowFragment
+
+        setPlaybackRowPresenter(controlRow.setUpAdapter())
+
         val contentId = arguments?.getString(CONTENT_ID) ?: return requireActivity().finish()
         val channelId = arguments?.getString(CHANNEL_ID)
         lifecycleScope.launchWhenStarted {
