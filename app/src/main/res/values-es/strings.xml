@@ -2,18 +2,18 @@
 <resources>
     <string name="login">Correo electrónico</string>
     <string name="password">Contraseña</string>
-    <string name="signin">Inicia sesión</string>
-    <string name="signin_required_f1_tv_pro_account">Es necesaria una cuenta F1Tv/F1TvPro para hacer iniciar sesión</string>
+    <string name="signin">Iniciar sesión</string>
+    <string name="signin_required_f1_tv_pro_account">Es necesaria una cuenta F1Tv/F1TvPro para iniciar sesión</string>
     <string name="invalid_credentials">Credenciales no válidos</string>
     <string name="rejected_credentials">Email o contraseña incorrectos</string>
     <string name="rejected_credentials_message">
         A veces esto puede ocurrir incluso si su nombre de usuario y contraseña son correctos debido a un BUG de la <b>F1 API</b>.\n\n
         1. Si ese es el caso, una posible solución es <b>ir al sitio web de F1TV en tu ordenador</b>,
-        luego iniciar sesión en su cuenta y cerrar la sesión y luego volver
+        luego iniciar sesión en su cuenta y cerrar sesión y luego volver
         a la app y funcionará.\n
         2. También es posible, que por alguna razón, su IP esté bloqueada (401 response), en ese caso,
         trate de cambiar de red, eso también podría funcionar. En ese caso, también debería contactar con
-        soporte de F1.
+        el soporte de F1.
     </string>
 
     <string name="unable_to_play_video_message">Algo fue mal cuando intentó reproducir este vídeo</string>
@@ -36,7 +36,7 @@
     <string name="settings_stream_type_title">Selecciona formato de retransmisión (beta)</string>
     <string name="settings_bypass_channel_selection_title">Selección de canal Bypass</string>
     <string name="settings_bypass_channel_selection_summary">Si se activa después de seleccionar un evento, se le redirigirá inmediatamente al reproductor de la emisión general</string>
-    <string name="settings_display_thumbnails_enabled_title">Muestra miniaturas</string>
+    <string name="settings_display_thumbnails_enabled_title">Mostrar miniaturas</string>
     <string name="settings_display_thumbnails_enabled_summary">Las miniaturas pueden contener spoilers. Desactivalo para deshabilitar las miniaturas</string>
     <string name="settings_open_with_external_player_title">Abrir con reproductor multimedia externo (beta)</string>
     <string name="settings_reset_to_default_title">Restablecer la configuración por defecto</string>
